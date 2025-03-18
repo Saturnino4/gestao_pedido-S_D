@@ -1,4 +1,4 @@
-  services:
+services:
   
     postgres:
       image: postgres:14
@@ -14,11 +14,17 @@
         POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       ports:
         - "5437:5432"
+      volumes:
+        - postgres_data:/var/lib/postgresql/data
     
     django:
       build:
         context: ./backend
       container_name: django-pedidos
+      networks:
+        default:
+          aliases:
+            - django
       command: >
         sh -c "python manage.py makemigrations && python manage.py migrate &&
                python manage.py runserver 0.0.0.0:8000"
@@ -32,3 +38,24 @@
         - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
       depends_on:
         - postgres
+
+
+    wso2mi:
+      image: wso2/wso2mi:4.2.0
+      container_name: wso2mi-pedidos
+      ports:
+        - "8290:8290"
+        - "8253:8253"
+        - "9201:9201"
+      volumes:
+        - ./wso2-middleware/target/wso2-middleware_1.0.0.car:/home/wso2carbon/wso2mi/repository/deployment/server/carbonapps/wso2-middleware_1.0.0.car
+        # - ./wso2mi-config/api:/home/wso2carbon/wso2mi/repository/deployment/server/synapse-configs/default/api
+      restart: always 
+      environment: 
+        - JAVA_OPTS=-Xms256m -Xmx1024m
+      depends_on:
+        - django
+
+volumes:
+  postgres_data:
+

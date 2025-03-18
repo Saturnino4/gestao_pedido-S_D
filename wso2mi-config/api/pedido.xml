@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api name="PedidoAPI" context="/pedido" xmlns="http://ws.apache.org/ns/synapse">
+    <!-- List pedidos -->
+    <resource methods="GET" url-mapping="/">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Requesting all pedidos"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="GET" uri-template="http://django:8000/api/v1/pedido/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+    </resource>
+
+    <!-- Register new pedido -->
+    <resource methods="POST" url-mapping="/registrar">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Registering new pedido"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="POST" uri-template="http://django:8000/api/v1/pedido/registrar/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+    </resource>
+
+    <!-- Update pedido -->
+    <resource methods="PUT" url-mapping="/{id}/atualizar">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Updating pedido"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="PUT" uri-template="http://django:8000/api/v1/pedido/{uri.var.id}/atualizar/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+    </resource>
+
+    <!-- Approve pedido -->
+    <resource methods="POST" url-mapping="/{id}/aprovar">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Approving pedido"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="POST" uri-template="http://django:8000/api/v1/pedido/{uri.var.id}/aprovar/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+    </resource>
+
+    <!-- Reject pedido -->
+    <resource methods="POST" url-mapping="/{id}/reprovar">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Rejecting pedido"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="POST" uri-template="http://django:8000/api/v1/pedido/{uri.var.id}/reprovar/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+    </resource>
+
+    <!-- Delete pedido -->
+    <resource methods="DELETE" url-mapping="/{id}/eliminar">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Eliminating pedido"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="DELETE" uri-template="http://django:8000/api/v1/pedido/{uri.var.id}/eliminar/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+    </resource>
+</api>
