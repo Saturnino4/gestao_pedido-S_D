@@ -15,7 +15,7 @@
         <outSequence>
             <send/>
         </outSequence>
-        <faultSequence>
+        ka <faultSequence>
             <log level="custom">
                 <property name="message" value="Error retrieving pedidos"/>
                 <property name="error_code" expression="get-property('ERROR_CODE')"/>
