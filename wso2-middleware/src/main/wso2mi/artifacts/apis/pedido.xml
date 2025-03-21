@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api name="pedido" context="/api/v1/pedido" xmlns="http://ws.apache.org/ns/synapse">
+    <!-- List all pedidos -->
+    <resource methods="GET" uri-template="/">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Retrieving all pedidos"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="GET" uri-template="http://django-pedidos:8000/api/v1/pedido/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="custom">
+                <property name="message" value="Error retrieving pedidos"/>
+                <property name="error_code" expression="get-property('ERROR_CODE')"/>
+                <property name="error_message" expression="get-property('ERROR_MESSAGE')"/>
+            </log>
+            <respond/>
+        </faultSequence>
+    </resource>
+
+    <!-- Register new pedido -->
+    <resource methods="POST" uri-template="/registrar">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Registering new pedido"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="POST" uri-template="http://django-pedidos:8000/api/v1/pedido/registrar/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="custom">
+                <property name="message" value="Error registering pedido"/>
+                <property name="error_code" expression="get-property('ERROR_CODE')"/>
+                <property name="error_message" expression="get-property('ERROR_MESSAGE')"/>
+            </log>
+            <respond/>
+        </faultSequence>
+    </resource>
+
+    <!-- Update pedido -->
+    <resource methods="PUT" uri-template="/{id}/atualizar">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Updating pedido"/>
+                <property name="pedido_id" expression="get-property('uri.var.id')"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="PUT" uri-template="http://django-pedidos:8000/api/v1/pedido/{uri.var.id}/atualizar/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="custom">
+                <property name="message" value="Error updating pedido"/>
+                <property name="error_code" expression="get-property('ERROR_CODE')"/>
+                <property name="error_message" expression="get-property('ERROR_MESSAGE')"/>
+            </log>
+            <respond/>
+        </faultSequence>
+    </resource>
+
+    <!-- Delete pedido -->
+    <resource methods="DELETE" uri-template="/{id}/eliminar">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Deleting pedido"/>
+                <property name="pedido_id" expression="get-property('uri.var.id')"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="DELETE" uri-template="http://django-pedidos:8000/api/v1/pedido/{uri.var.id}/eliminar/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="custom">
+                <property name="message" value="Error deleting pedido"/>
+                <property name="error_code" expression="get-property('ERROR_CODE')"/>
+                <property name="error_message" expression="get-property('ERROR_MESSAGE')"/>
+            </log>
+            <respond/>
+        </faultSequence>
+    </resource>
+
+    <!-- Approve pedido -->
+    <resource methods="POST" uri-template="/{id}/aprovar">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Approving pedido"/>
+                <property name="pedido_id" expression="get-property('uri.var.id')"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="POST" uri-template="http://django-pedidos:8000/api/v1/pedido/{uri.var.id}/aprovar/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="custom">
+                <property name="message" value="Error approving pedido"/>
+                <property name="error_code" expression="get-property('ERROR_CODE')"/>
+                <property name="error_message" expression="get-property('ERROR_MESSAGE')"/>
+            </log>
+            <respond/>
+        </faultSequence>
+    </resource>
+
+    <!-- Reject pedido -->
+    <resource methods="POST" uri-template="/{id}/reprovar">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Rejecting pedido"/>
+                <property name="pedido_id" expression="get-property('uri.var.id')"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="POST" uri-template="http://django-pedidos:8000/api/v1/pedido/{uri.var.id}/reprovar/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="custom">
+                <property name="message" value="Error rejecting pedido"/>
+                <property name="error_code" expression="get-property('ERROR_CODE')"/>
+                <property name="error_message" expression="get-property('ERROR_MESSAGE')"/>
+            </log>
+            <respond/>
+        </faultSequence>
+    </resource>
+</api>

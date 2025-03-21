@@ -10,7 +10,7 @@ def responseData(data=None, status=200, message=None):
         'message': message,
         'data': data
     }
-    return Response(response, status=status)
+    return Response(response, status=status) #, json_dumps_params={'ident': 4})
 
 def queryPedido(id):
     try:

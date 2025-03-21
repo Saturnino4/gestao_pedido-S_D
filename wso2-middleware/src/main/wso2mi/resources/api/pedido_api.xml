@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/pedido" name="PedidoAPI" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET POST PUT DELETE PATCH" uri-template="/">
+        <inSequence>
+            <log level="full">
+                <property name="MESSAGE" value="Recebendo requisição ROOT para API de pedidos"/>
+                <property name="REST_URL" expression="$axis2:REST_URL"/>
+                <property name="REST_METHOD" expression="$axis2:HTTP_METHOD"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="{+method}" uri-template="http://django-pedidos:8000/api/v1/pedido/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log level="full">
+                <property name="MESSAGE" value="Enviando resposta da API de pedidos"/>
+            </log>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="full" category="ERROR">
+                <property name="MESSAGE" value="Erro na API de pedidos"/>
+                <property name="ERROR_CODE" expression="get-property('ERROR_CODE')"/>
+                <property name="ERROR_MESSAGE" expression="get-property('ERROR_MESSAGE')"/>
+            </log>
+            <respond/>
+        </faultSequence>
+    </resource>
+
+    <resource methods="GET POST PUT DELETE PATCH" uri-template="/{id}">
+        <inSequence>
+            <log level="full">
+                <property name="MESSAGE" value="Recebendo requisição para pedido específico"/>
+                <property name="PEDIDO_ID" expression="get-property('uri.var.id')"/>
+            </log>
+            <send>
+                <endpoint>
+                    <http method="{+method}" uri-template="http://django-pedidos:8000/api/v1/pedido/{uri.var.id}/"/>
+                </endpoint>
+            </send>
+        </inSequence>
+        <outSequence>
+            <log level="full">
+                <property name="MESSAGE" value="Enviando resposta do pedido específico"/>
+            </log>
+            <send/>
+        </outSequence>
+        <faultSequence>
+            <log level="full" category="ERROR">
+                <property name="MESSAGE" value="Erro no pedido específico"/>
+                <property name="ERROR_CODE" expression="get-property('ERROR_CODE')"/>
+                <property name="ERROR_MESSAGE" expression="get-property('ERROR_MESSAGE')"/>
+            </log>
+            <respond/>
+        </faultSequence>
+    </resource>
+</api>

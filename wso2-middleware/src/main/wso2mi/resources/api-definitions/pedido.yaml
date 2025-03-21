@@ -1,0 +1,29 @@
+openapi: 3.0.1
+info:
+  title: pedido
+  description: API Definition of pedido
+  version: 1.0.0
+servers:
+- url: http://localhost:8290
+paths:
+  /pedido:
+    get:
+      responses:
+        default:
+          description: Default response
+    post:
+      responses:
+        default:
+          description: Default response
+    put:
+      responses:
+        default:
+          description: Default response
+    delete:
+      responses:
+        default:
+          description: Default response
+x-wso2-basePath: /pedido
+x-wso2-production-endpoints:
+  urls:
+  - http://django-pedidos:8000/api/v1/pedido

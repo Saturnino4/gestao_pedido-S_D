@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.pedido</groupId>
-  <artifactId>wso2-middleware</artifactId>
+  <groupId>com.microintegrator.projects</groupId>
+  <artifactId>wso2mi-mid</artifactId>
   <version>1.0.0</version>
-  <packaging>carbon/application</packaging>
-  <name>wso2-middleware</name>
-  <description>Middleware para integração de pedidos</description>
+  <packaging>pom</packaging>
+  <name>wso2mi-mid</name>
+  <description>wso2mi-mid</description>
   <repositories>
     <repository>
         <id>wso2-nexus</id>
@@ -97,7 +97,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-compiler-plugin</artifactId>
-            <version>3.8.1</version>
             <configuration>
               <source>1.8</source>
               <target>1.8</target>
@@ -106,7 +105,6 @@
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
-            <version>3.2.0</version>
             <configuration>
               <skipIfEmpty>true</skipIfEmpty>
             </configuration>
@@ -381,37 +379,11 @@
           <mavenTestSkip>${maven.test.skip}</mavenTestSkip>
         </configuration>
       </plugin>
-      <plugin>
-        <groupId>org.wso2.maven</groupId>
-        <artifactId>maven-car-plugin</artifactId>
-        <version>2.1.1</version>
-        <extensions>true</extensions>
-        <configuration>
-          <clearConsole>true</clearConsole>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>3.2.0</version>
-        <configuration>
-          <skipIfEmpty>true</skipIfEmpty>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <properties>
     <projectType>integration-project</projectType>
-    <uuid>7ed541a6-f808-4aa9-bf8c-75c5ecf122a9</uuid>
+    <uuid>1caf2d70-661f-4f4c-9b08-1359c577674e</uuid>
     <!-- <archiveLocation>configure a custom target directory for CAPP</archiveLocation> -->
     <keystore.type>JKS</keystore.type>
     <keystore.name>wso2carbon.jks</keystore.name>
@@ -433,23 +405,17 @@
     <maven.test.skip>false</maven.test.skip>
   </properties>
   <dependencies>
-    <dependency>
-        <groupId>org.wso2.integration.connector</groupId>
-        <artifactId>mi-connector-http</artifactId>
-        <version>0.1.8</version>
-        <type>zip</type>
-        <exclusions>
-            <exclusion>
-                <groupId>*</groupId>
-                <artifactId>*</artifactId>
-            </exclusion>
-        </exclusions>
-    </dependency>
-    <dependency>
-        <groupId>org.wso2.maven</groupId>
-        <artifactId>maven-car-plugin</artifactId>
-        <version>2.1.1</version>
-        <type>jar</type>
-    </dependency>
-  </dependencies>
+        <dependency>
+            <groupId>org.wso2.integration.connector</groupId>
+            <artifactId>mi-connector-http</artifactId>
+            <version>0.1.8</version>
+            <type>zip</type>
+            <exclusions>
+                <exclusion>
+                    <groupId>*</groupId>
+                    <artifactId>*</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+    </dependencies>
 </project>

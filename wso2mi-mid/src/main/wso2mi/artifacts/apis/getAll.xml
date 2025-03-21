@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<api context="/pedido" name="getAll" xmlns="http://ws.apache.org/ns/synapse">
+    <resource methods="GET" uri-template="/">
+        <inSequence>
+            <log level="custom">
+                <property name="message" value="Calling Django Pedidos API"/>
+            </log>
+            <call>
+                <endpoint>
+                    <http method="GET" uri-template="http://django-pedidos:8000/api/v1/pedido/"/>
+                </endpoint>
+            </call>
+            <respond/>
+        </inSequence>
+        <faultSequence>
+            <log level="custom">
+                <property name="ERROR" value="Error calling Django Pedidos API"/>
+                <property name="ERROR_CODE" expression="get-property('ERROR_CODE')"/>
+                <property name="ERROR_MESSAGE" expression="get-property('ERROR_MESSAGE')"/>
+            </log>
+            <payloadFactory media-type="json">
+                <format>{"error": true, "message": "Error processing request"}</format>
+                <args/>
+            </payloadFactory>
+            <respond/>
+        </faultSequence>
+    </resource>
+</api>
