@@ -54,7 +54,6 @@ services:
       - JAVA_OPTS=-Xms256m -Xmx1024m
     depends_on:
       - django
-
       
 volumes:
   postgres_data:
